@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Official website of Raccoon Reserve ($TRASH), a community meme token on Base.">
+  <title>Raccoon Reserve | $TRASH</title>
+  <style>
+    :root {
+      --gold: #e5bd62;
+      --green: #a8e765;
+      --black: #090b0b;
+      --panel: #171a19;
+      --muted: #c5c7c3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--black);
+      color: #f6f3e9;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+    header {
+      padding: 20px 6%;
+      border-bottom: 1px solid #5a4826;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    nav a {
+      color: #fff;
+      margin-left: 18px;
+      text-decoration: none;
+    }
+    nav a:hover, a:hover { color: var(--green); }
+    main { max-width: 1050px; margin: auto; padding: 0 22px; }
+    .hero {
+      text-align: center;
+      padding: 100px 0 75px;
+    }
+    .eyebrow { color: var(--green); letter-spacing: 3px; }
+    h1 {
+      color: var(--gold);
+      font-size: clamp(42px, 8vw, 82px);
+      line-height: 1.1;
+      margin: 16px 0;
+    }
+    h2 { color: var(--gold); }
+    .subtitle { font-size: 21px; color: var(--muted); }
+    .motto {
+      color: var(--green);
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+    .button {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 8px;
+      background: var(--gold);
+      color: #111;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .button.secondary {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+    section { padding: 35px 0; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid #53472d;
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .card strong { color: var(--green); }
+    .address {
+      background: #1b1e1b;
+      border: 1px solid #53472d;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+      font-family: monospace;
+    }
+    a { color: var(--gold); }
+    .notice {
+      border-left: 4px solid var(--gold);
+      padding: 15px 20px;
+      background: #191919;
+    }
+    footer {
+      border-top: 1px solid #53472d;
+      text-align: center;
+      padding: 35px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">RACCOON RESERVE | $TRASH</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#token">Token</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">ON BASE • ERC-20</div>
+      <h1>RACCOON<br>RESERVE</h1>
+      <p class="subtitle">The home of $TRASH</p>
+      <p class="motto">IN GARBAGE WE TRUST.</p>
+      <p>A community meme token with a raccoon-sized appetite
+      for creativity, culture, and future experimentation.</p>
+      <div class="buttons">
+        <a class="button"
+          href="https://app.uniswap.org/swap?chain=base&outputCurrency=0x234142c6b388bfd37b8e1c79d2c2e240bd2d70d4"
+          target="_blank" rel="noopener noreferrer">
+          View on Uniswap
+        </a>
+        <a class="button secondary"
+          href="https://basescan.org/token/0x234142c6b388bfd37b8e1c79d2c2e240bd2d70d4"
+          target="_blank" rel="noopener noreferrer">
+          Verify Contract
+        </a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>What Is Raccoon Reserve?</h2>
+      <p>Raccoon Reserve ($TRASH) is a fixed-supply ERC-20
+      community meme token deployed on Base. The project
+      combines raccoon-inspired branding with plans for
+      community engagement and exploration of blockchain
+      recycling concepts.</p>
+      <p>Proposed future features are ideas under development,
+      not existing services or guaranteed deliverables.</p>
+    </section>
+
+    <section id="token">
+      <h2>Verified Token Information</h2>
+      <div class="cards">
+        <div class="card">
+          <strong>Token</strong>
+          <p>Raccoon Reserve ($TRASH)</p>
+        </div>
+        <div class="card">
+          <strong>Blockchain</strong>
+          <p>Base Mainnet (Chain ID 8453)</p>
+        </div>
+        <div class="card">
+          <strong>Total Supply</strong>
+          <p>1,000,000,000 TRASH</p>
+        </div>
+        <div class="card">
+          <strong>Token Tax</strong>
+          <p>0% contract-level buy/sell tax</p>
+        </div>
+      </div>
+
+      <h3>Official Contract Address</h3>
+      <div class="address">
+        0x234142c6b388bfd37b8e1c79d2c2e240bd2d70d4
+      </div>
+      <p>Always verify the full contract address before
+      interacting with any token.</p>
+
+      <h3>Liquidity and Distribution Disclosure</h3>
+      <div class="notice">
+        <p>A Uniswap V3 TRASH/WETH liquidity position exists
+        on Base. The liquidity position is currently
+        creator-controlled and is not locked or burned.</p>
+        <p>At the initial website preparation stage,
+        approximately 998 million of the one billion TRASH
+        supply remains in the deployer wallet. A broader
+        community distribution has not yet occurred.
+        These figures may change and should be independently
+        checked onchain.</p>
+        <p>Limited liquidity and concentrated holdings can
+        cause substantial price volatility and trading risk.</p>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2>Development Roadmap</h2>
+      <div class="cards">
+        <div class="card">
+          <strong>Completed</strong>
+          <p>Fixed-supply token deployment, contract verification,
+          and initial Uniswap V3 liquidity creation.</p>
+        </div>
+        <div class="card">
+          <strong>Current Priorities</strong>
+          <p>Public website, clear disclosures, community
+          communications, and distribution planning.</p>
+        </div>
+        <div class="card">
+          <strong>Future Concepts</strong>
+          <p>Community initiatives, The Dumpster treasury concept,
+          and research into safe blockchain recycling tools.
+          These are not currently live.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Official Contact</h2>
+      <p>Email:
+        <a href="mailto:raccoonreserve.official@gmail.com">
+          raccoonreserve.official@gmail.com
+        </a>
+      </p>
+      <p>Official social channels will be listed here after
+      they are established and verified.</p>
+    </section>
+
+    <section>
+      <h2>Important Risk Disclosure</h2>
+      <div class="notice">
+        <p>$TRASH is a speculative meme token, not a deposit,
+        ownership share, or promise of income. No profit,
+        liquidity, exchange listing, or future development
+        is guaranteed.</p>
+        <p>Trading involves risks including total loss,
+        slippage, volatility, smart-contract vulnerabilities,
+        and limited liquidity. Do your own research.
+        This website does not provide investment advice.</p>
+        <p>No independent smart-contract security audit
+        is claimed.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>RACCOON RESERVE — $TRASH</strong>
+    <p>IN GARBAGE WE TRUST.</p>
+    <p>Community meme token on Base.</p>
+  </footer>
+</body>
+</html>
