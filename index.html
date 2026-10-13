@@ -339,7 +339,7 @@ const form = document.getElementById("community-registration-form");
 const submitButton = form.querySelector('button[type="submit"]');
 
 submitButton.disabled = true;
-submitButton.textContent = "Register for Updates";
+submitButton.textContent = "Registration Coming Soon";
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -379,7 +379,7 @@ form.addEventListener("submit", async (event) => {
     alert(error.message || "Unable to register. Please try again.");
   } finally {
    submitButton.disabled = true;
-    submitButton.textContent = "Register for Updates";
+   submitButton.textContent = "Registration Coming Soon";
   }
 });
  
