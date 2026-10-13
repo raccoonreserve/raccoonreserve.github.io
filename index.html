@@ -338,7 +338,7 @@
 const form = document.getElementById("community-registration-form");
 const submitButton = form.querySelector('button[type="submit"]');
 
-submitButton.disabled = false;
+submitButton.disabled = true;
 submitButton.textContent = "Register for Updates";
 
 form.addEventListener("submit", async (event) => {
@@ -378,7 +378,7 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     alert(error.message || "Unable to register. Please try again.");
   } finally {
-    submitButton.disabled = false;
+   submitButton.disabled = true;
     submitButton.textContent = "Register for Updates";
   }
 });
