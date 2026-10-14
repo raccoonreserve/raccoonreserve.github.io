@@ -315,11 +315,13 @@
       </label>
     </p>
 <div class="cf-turnstile" data-sitekey="0x4AAAAAAFVJtqYQI44qyk2g"></div>    
-    <button type="submit" disabled>
-      Registration Coming Soon
+   <button type="submit">
+      Register
     </button>
   </form>
-  <p>Registration submissions are not yet active.</p>
+  
+<p>Join the Raccoon Reserve community for project news and development updates. Registration is free.</p>
+
 </section>
 
   
@@ -338,8 +340,9 @@
 const form = document.getElementById("community-registration-form");
 const submitButton = form.querySelector('button[type="submit"]');
 
-submitButton.disabled = true;
-submitButton.textContent = "Registration Coming Soon";
+
+submitButton.disabled = false;
+submitButton.textContent = "Register";
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -378,8 +381,10 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     alert(error.message || "Unable to register. Please try again.");
   } finally {
-   submitButton.disabled = true;
-   submitButton.textContent = "Registration Coming Soon";
+  
+submitButton.disabled = false;
+submitButton.textContent = "Register";
+
   }
 });
  
