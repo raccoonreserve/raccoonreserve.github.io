@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaccoonRecycling - read-only Base blockchain wallet inspection.">
+<title>RaccoonRecycling | $TRASH</title>
+<style>
+:root {
+  --gold: #e5bd62;
+  --green: #a8e765;
+  --black: #090b0b;
+  --panel: #171a19;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: #f6f3e9;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+header, footer {
+  padding: 24px;
+  text-align: center;
+  border-bottom: 1px solid #5a4826;
+}
+header h1 { color: var(--gold); }
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 35px 20px;
+}
+h2 { color: var(--gold); }
+.card {
+  background: var(--panel);
+  border: 1px solid #53472d;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+label { display: block; margin-bottom: 10px; }
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 7px;
+  border: 1px solid #777;
+  background: #fff;
+  color: #111;
+  font-size: 16px;
+}
+button {
+  margin-top: 15px;
+  padding: 13px 24px;
+  background: var(--gold);
+  color: #111;
+  border: 0;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:disabled { opacity: .6; cursor: wait; }
+a { color: var(--green); }
+.result { overflow-wrap: anywhere; }
+.notice { color: #d4d4d4; }
+.status { min-height: 1.5em; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>RACCOON RECYCLING</h1>
+  <p>Powered by Raccoon Reserve | $TRASH</p>
+  <p>IN GARBAGE WE TRUST.</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Base Wallet Scanner — Beta</h2>
+    <p>Inspect a public Base wallet address without
+    connecting your wallet or signing transactions.</p>
+
+    <form id="scanner-form">
+      <label for="wallet">Public wallet address</label>
+      <input id="wallet"
+             type="text"
+             placeholder="0x..."
+             maxlength="42"
+             autocomplete="off"
+             spellcheck="false"
+             required>
+      <button id="scan-button" type="submit">
+        Scan Wallet
+      </button>
+    </form>
+
+    <p id="status" class="status" role="status"></p>
+  </section>
+
+  <section id="results" class="card" hidden>
+    <h2>Wallet Inspection</h2>
+    <div id="wallet-results" class="result"></div>
+  </section>
+
+  <section class="card">
+    <h2>Upcoming Cleanup Tools</h2>
+    <p>Token inventory, approval analysis,
+    and user-authorized cleanup features
+    are under development.</p>
+    <p>No cleanup transactions are available yet.</p>
+  </section>
+
+  <section class="card">
+    <h2>Security</h2>
+    <p class="notice">
+      Never enter private keys, recovery phrases,
+      or passwords. Only public wallet addresses
+      are required.
+    </p>
+    <p class="notice">
+      This beta scanner uses a public Base RPC
+      endpoint. Availability may vary.
+      Wallet addresses are public blockchain data.
+    </p>
+  </section>
+
+  <p><a href="index.html">Return to Raccoon Reserve</a></p>
+</main>
+
+<footer>
+  <p>RACCOON RESERVE — $TRASH</p>
+  <p>IN GARBAGE WE TRUST.</p>
+</footer>
+
+<script>
+"use strict";
+
+const RPC = "https://mainnet.base.org";
+const form = document.getElementById("scanner-form");
+const button = document.getElementById("scan-button");
+const status = document.getElementById("status");
+const results = document.getElementById("results");
+const output = document.getElementById("wallet-results");
+
+function validAddress(value) {
+  return /^0x[a-fA-F0-9]{40}$/.test(value);
+}
+
+async function rpcCall(method, params) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+
+  try {
+    const response = await fetch(RPC, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        method,
+        params
+      }),
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error("RPC request failed.");
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error("Blockchain RPC returned an error.");
+    }
+
+    if (typeof data.result !== "string") {
+      throw new Error("Invalid blockchain response.");
+    }
+
+    return data.result;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function formatEth(weiHex) {
+  const wei = BigInt(weiHex);
+  const whole = wei / (10n ** 18n);
+  const fraction = (wei % (10n ** 18n))
+    .toString().padStart(18, "0")
+    .slice(0, 8).replace(/0+$/, "");
+
+  return whole.toString() +
+    (fraction ? "." + fraction : "") + " ETH";
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const address = document.getElementById("wallet")
+    .value.trim();
+
+  results.hidden = true;
+  output.replaceChildren();
+
+  if (!validAddress(address)) {
+    status.textContent = "Enter a valid public 0x wallet address.";
+    return;
+  }
+
+  button.disabled = true;
+  status.textContent = "Reading Base blockchain data...";
+
+  try {
+    const chainHex = await rpcCall("eth_chainId", []);
+
+    if (BigInt(chainHex) !== 8453n) {
+      throw new Error("RPC is not connected to Base Mainnet.");
+    }
+
+    const balanceHex = await rpcCall(
+      "eth_getBalance", [address, "latest"]
+    );
+
+    const heading = document.createElement("p");
+    heading.textContent = "Address: " + address;
+
+    const balance = document.createElement("p");
+    balance.textContent =
+      "Native ETH balance: " + formatEth(balanceHex);
+
+    const tokenLink = document.createElement("a");
+    tokenLink.href =
+      "https://basescan.org/tokenholdings?a=" +
+      encodeURIComponent(address);
+    tokenLink.target = "_blank";
+    tokenLink.rel = "noopener noreferrer";
+    tokenLink.textContent = "View token holdings on BaseScan";
+
+    const approvalLink = document.createElement("a");
+    approvalLink.href =
+      "https://basescan.org/tokenapprovalchecker?search=" +
+      encodeURIComponent(address);
+    approvalLink.target = "_blank";
+    approvalLink.rel = "noopener noreferrer";
+    approvalLink.textContent = "Inspect approvals on BaseScan";
+
+    output.append(
+      heading,
+      balance,
+      tokenLink,
+      document.createElement("br"),
+      approvalLink
+    );
+
+    results.hidden = false;
+    status.textContent = "Read-only inspection complete.";
+  } catch (error) {
+    status.textContent =
+      "Scan unavailable: " + (error.message || "Unknown error.");
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
